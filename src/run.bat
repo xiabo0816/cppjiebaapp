@@ -1,0 +1,1 @@
+cppjiebaapp.exe --batch config.ini test.list seged\ 8
