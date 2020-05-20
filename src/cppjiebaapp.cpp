@@ -1,4 +1,4 @@
-// cppjiebaapp.cpp : ∂®“Âøÿ÷∆Ã®”¶”√≥Ã–Úµƒ»Îø⁄µ„°£
+// cppjiebaapp.cpp : ÂÆö‰πâÊéßÂà∂Âè∞Â∫îÁî®Á®ãÂ∫èÁöÑÂÖ•Âè£ÁÇπ„ÄÇ
 //
 
 #include "stdafx.h"
@@ -90,65 +90,6 @@ public:
 	};
 
 };
-/*
-class CSizeInfo
-{
-public:
-int m_nThreadNum_Count;
-int m_nThreadNum_Offset;
-int m_nThreadNum_Sort;
-int m_nThreadNum_AS;
-unsigned int m_nHashSize_IdxUnit;
-unsigned int m_nHashSize_WordList;
-int m_nHashTagSize_Merge;
-int m_nMaxAtomSearchRetSize;
-int m_nRetInfoMaxSize;
-int m_nRetBuffSize;
-int m_nMinIdxUnitCount_ForComplexId;
-_int64  m_nMaxOffsetFileSize;
-
-_int64  m_nMaxMemCount;
-_int64  m_nToFreeMemCount;
-int m_nSortCompWordLen;
-_int64  m_nMaxUnitCount_ToSort;
-_int64  m_nMaxUnitCount_ToSearch;
-
-unsigned int m_nSentInfoHashSize;
-
-float m_fBM_K1;
-float m_fBM_K2;
-float m_fBM_b;
-
-public:
-void SizeInfoInit(cJSON *pJSON);
-public:
-CSizeInfo() {
-m_nMinIdxUnitCount_ForComplexId = 0;
-m_nThreadNum_Count = 1;
-m_nThreadNum_Offset = 1;
-m_nThreadNum_Sort = 1;
-m_nThreadNum_AS = 1;
-m_nHashSize_IdxUnit = 102400;
-m_nHashSize_WordList = 10240000;
-m_nHashTagSize_Merge = 1024000;
-m_nMaxAtomSearchRetSize = 102400;
-m_nRetInfoMaxSize = 102400;
-m_nRetBuffSize = 102400;
-m_nMaxOffsetFileSize = 1024 * 1024 * 1024 * 2;
-m_nMaxMemCount = 1024 * 1024 * 1024 * 2;
-m_nToFreeMemCount = 1024 * 1024 * 1024 * 200;
-m_nSortCompWordLen = 10;
-m_nMaxUnitCount_ToSort = m_nMaxMemCount;
-m_nMaxUnitCount_ToSearch = m_nMaxUnitCount_ToSort * 100;
-m_fBM_K1 = 0.;
-m_fBM_b = 0.;
-m_fBM_K2 = 0;
-};
-
-};
-
-
-*/
 
 class CServer
 {
@@ -262,47 +203,6 @@ public:
 	std::vector<std::string> m_vFileList;	//all files 
 	vector< vector<string> > m_vvFileList;	//file vector for thread worker
 
-	/*
-	bool ReadDirs() {
-		char szFile[MAX_PATH];
-		char szFind[MAX_PATH];
-		strcpy(szFind, m_strIn.c_str());
-		strcat(szFind, "\\*");
-		WIN32_FIND_DATA FindFileData;
-		HANDLE hFind = ::FindFirstFile(szFind, &FindFileData);
-		if (INVALID_HANDLE_VALUE == hFind)
-		{
-			std::cout << "Empty folder!" << std::endl;
-			return false;
-		}
-
-		do
-		{
-			if (!(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-			{
-				if (FindFileData.cFileName[0] != '.')
-				{
-					if (szFile[0])
-					{
-						std::string filePath = m_strIn.c_str();
-						filePath += "\\";
-						filePath += FindFileData.cFileName;
-						m_vFileList.push_back(filePath);
-					}
-					else
-					{
-						std::string filePath = szFile;
-						filePath += FindFileData.cFileName;
-						m_vFileList.push_back(filePath);
-					}
-				}
-			}
-		} while (::FindNextFile(hFind, &FindFileData));
-
-		::FindClose(hFind);
-		return true;
-	}
-	*/
 	bool ReadList() {
 		FILE *fpInp = NULL;
 		char szLine[MAX_PATH];
@@ -409,7 +309,7 @@ bool Segbatch(char* in, char* out, int jobs)
 	start = clock();
 	Client.Run();
 	stop = clock();
-	printf("\nRunning Time£∫%dms\n", (stop - start));
+	printf("\nRunning TimeÔºö%dms\n", (stop - start));
 
 	return true;
 }
@@ -438,65 +338,4 @@ int main(int argc, char** argv) {
 	}
 
 	return 0;
-
-	/*
-	s = u8"À˚¿¥µΩ¡ÀÕ¯“◊∫º—–¥Ûœ√";
-	cout << s << endl;
-	cout << "[demo] Cut With HMM" << endl;
-	jieba.Cut(s, words, true);
-	cout << limonp::Join(words.begin(), words.end(), "/") << endl;
-
-	cout << "[demo] Cut Without HMM " << endl;
-	jieba.Cut(s, words, false);
-	cout << limonp::Join(words.begin(), words.end(), "/") << endl;
-
-	s = u8"Œ“¿¥µΩ±±æ©«Âª™¥Û—ß";
-	cout << s << endl;
-	cout << "[demo] CutAll" << endl;
-	jieba.CutAll(s, words);
-	cout << limonp::Join(words.begin(), words.end(), "/") << endl;
-
-	s = u8"–°√˜À∂ ø±œ“µ”⁄÷–π˙ø∆—ß‘∫º∆À„À˘£¨∫Û‘⁄»’±ææ©∂º¥Û—ß…Ó‘Ï";
-	cout << s << endl;
-	cout << "[demo] CutForSearch" << endl;
-	jieba.CutForSearch(s, words);
-	cout << limonp::Join(words.begin(), words.end(), "/") << endl;
-
-	cout << "[demo] Insert User Word" << endl;
-	jieba.Cut("ƒ–ƒ¨≈Æ¿·", words);
-	cout << limonp::Join(words.begin(), words.end(), "/") << endl;
-	jieba.InsertUserWord("ƒ–ƒ¨≈Æ¿·");
-	jieba.Cut("ƒ–ƒ¨≈Æ¿·", words);
-	cout << limonp::Join(words.begin(), words.end(), "/") << endl;
-
-	cout << "[demo] CutForSearch Word With Offset" << endl;
-	jieba.CutForSearch(s, jiebawords, true);
-	cout << jiebawords << endl;
-
-	cout << "[demo] Lookup Tag for Single Token" << endl;
-	const int DemoTokenMaxLen = 32;
-	char DemoTokens[][DemoTokenMaxLen] = { "Õœ¿≠ª˙", "CEO", "123", "°£" };
-	vector<pair<string, string> > LookupTagres(sizeof(DemoTokens) / DemoTokenMaxLen);
-	vector<pair<string, string> >::iterator it;
-	for (it = LookupTagres.begin(); it != LookupTagres.end(); it++) {
-	it->first = DemoTokens[it - LookupTagres.begin()];
-	it->second = jieba.LookupTag(it->first);
-	}
-	cout << LookupTagres << endl;
-
-	cout << "[demo] Tagging" << endl;
-	vector<pair<string, string> > tagres;
-	s = u8"Œ“ «Õœ¿≠ª˙—ß‘∫ ÷∑ˆÕœ¿≠ª˙◊®“µµƒ°£≤ª”√∂‡æ√£¨Œ“æÕª·…˝÷∞º”–Ω£¨µ±…œCEO£¨◊ﬂ…œ»À…˙·€∑Â°£";
-	jieba.Tag(s, tagres);
-	cout << s << endl;
-	cout << tagres << endl;
-
-	cout << "[demo] Keyword Extraction" << endl;
-	const size_t topk = 5;
-	vector<cppjieba::KeywordExtractor::Word> keywordres;
-	jieba.extractor.Extract(s, keywordres, topk);
-	cout << s << endl;
-	cout << keywordres << endl;
-	return EXIT_SUCCESS;
-	*/
 }
